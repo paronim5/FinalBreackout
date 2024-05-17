@@ -14,7 +14,7 @@ public class Ball {
         this.speedY = speedY;
         this.moving = moving;
     }
-
+//region getters and setters
     public int getX() {
         return x;
     }
@@ -61,5 +61,13 @@ public class Ball {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+    //endregion
+    public void move(){
+
+        if (isMoving()) {
+            x += speedX;
+            y += speedY;
+        }
     }
 }
