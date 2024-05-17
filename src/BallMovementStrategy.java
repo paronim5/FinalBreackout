@@ -1,2 +1,2 @@
-public interface BallMovementStrategy {
+public class  BallMovementStrategy implements Move{
 }
