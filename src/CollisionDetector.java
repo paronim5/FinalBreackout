@@ -7,5 +7,9 @@ public class CollisionDetector {
         return ballRect.intersects(paddleRect);
     }
 
-
+    public static boolean checkCollision(Ball ball, Block block) {
+        Rectangle ballRect = ball.hitBox();
+        Rectangle blockRect = block.hitBox();
+        return ballRect.intersects(blockRect);
+    }
 }
