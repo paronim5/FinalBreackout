@@ -75,4 +75,11 @@ public class Ball {
     public Rectangle hitBox() {
         return new Rectangle(x, y, diameter, diameter);
     }
+    public void reverseX() {
+        speedX = -speedX;
+    }
+
+    public void reverseY() {
+        speedY = -speedY;
+    }
 }
