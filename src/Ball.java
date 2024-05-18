@@ -82,4 +82,8 @@ public class Ball {
     public void reverseY() {
         speedY = -speedY;
     }
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillOval(x, y, diameter, diameter);
+    }
 }
