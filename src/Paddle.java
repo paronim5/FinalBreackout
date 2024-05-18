@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Paddle {
     private int x;
     private int y;
@@ -66,5 +68,8 @@ public class Paddle {
     public void move() {
         //dont forget to check collision with game fiead
         x += dx;
+    }
+    public Rectangle hitBox() {
+        return new Rectangle(x, y, width, height);
     }
 }
