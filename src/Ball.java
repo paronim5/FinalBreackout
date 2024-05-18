@@ -65,7 +65,7 @@ public class Ball {
         this.moving = moving;
     }
     //endregion
-    public void move(){
+    public void move(){//dont forget to check collision with game fiead
 
         if (isMoving()) {
             x += speedX;
