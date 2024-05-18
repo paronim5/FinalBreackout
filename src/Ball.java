@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Ball {
     private int x;
     private int y;
@@ -70,5 +72,7 @@ public class Ball {
             y += speedY;
         }
     }
-
+    public Rectangle hitBox() {
+        return new Rectangle(x, y, diameter, diameter);
+    }
 }
