@@ -66,8 +66,12 @@ public class Paddle {
     }
     //endregion
     public void move() {
-        //dont forget to check collision with game fiead
         x += dx;
+        if (x < 0) {
+            x = 0;
+        } else if (x + width > GamePanel.WIDTH) {
+            x = GamePanel.WIDTH - width;
+        }
     }
     public Rectangle hitBox() {
         return new Rectangle(x, y, width, height);

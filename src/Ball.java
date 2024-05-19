@@ -65,11 +65,20 @@ public class Ball {
         this.moving = moving;
     }
     //endregion
-    public void move(){//dont forget to check collision with game fiead
+    public void move(){
 
         if (isMoving()) {
             x += speedX;
             y += speedY;
+        }
+        // collision with right and left walls
+        if (x <= 0 || x + diameter >= GamePanel.WIDTH) {
+            speedX = -speedX;
+        }
+
+        // collision with  top wall
+        if (y <= 0) {
+            speedY = -speedY;
         }
     }
     public Rectangle hitBox() {
