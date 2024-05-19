@@ -42,7 +42,9 @@ public class GamePanel extends JPanel implements KeyListener {
     public GamePanel() {}
     private void startGame() {}
     public static void createGameMenu() {}
-    public void addScore(){}
+    public void addScore(String player, int score){
+        leaderboard.put(player, score);
+    }
 
 
     @Override
