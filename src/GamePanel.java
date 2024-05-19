@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GamePanel extends JPanel implements KeyListener {
     public static final int WIDTH = 1200;
@@ -9,6 +11,7 @@ public class GamePanel extends JPanel implements KeyListener {
     private Ball ball;
     private Paddle paddle;
     private List<Block> bricks;
+    private Map<String, Integer> leaderboard = new HashMap<>();
 
 //region getters and setters
     public Ball getBall() {
