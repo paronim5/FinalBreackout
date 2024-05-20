@@ -12,6 +12,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private Paddle paddle;
     private List<Block> bricks;
     private Map<String, Integer> leaderboard = new HashMap<>();
+    private Timer timer;
+    private boolean inGame = true;
 
 //region getters and setters
     public Ball getBall() {
