@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -41,7 +42,9 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     //endregion
 
-    public GamePanel() {}
+    public GamePanel() {
+
+    }
     private void startGame() {}
     public static void createGameMenu() {}
     public void addScore(String player, int score){
@@ -60,4 +63,15 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {}
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (inGame) {
+            ball.draw(g);
+            paddle.draw(g);
+            for (Block brick : bricks) {
+                brick.draw(g);
+            }
+        }
+    }
 }
