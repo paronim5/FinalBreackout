@@ -80,4 +80,15 @@ public class Paddle {
         g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
     }
+    public void stop() {
+        dx = 0;
+    }
+
+    public void moveLeft() {
+        dx = -speed;
+    }
+
+    public void moveRight() {
+        dx = speed;
+    }
 }
