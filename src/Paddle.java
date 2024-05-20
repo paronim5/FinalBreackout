@@ -8,7 +8,7 @@ public class Paddle {
     private int speed;
     private int dx;
 
-    public Paddle(int x, int y, int width, int height, int speed, int dx) {
+    public Paddle(int x, int y, int width, int height, int speed) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -75,5 +75,9 @@ public class Paddle {
     }
     public Rectangle hitBox() {
         return new Rectangle(x, y, width, height);
+    }
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect(x, y, width, height);
     }
 }

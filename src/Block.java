@@ -7,12 +7,12 @@ public class Block {
     private int height;
     private boolean destroyed;
 
-    public Block(int x, int y, int width, int height, boolean destroyed) {
+    public Block(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.destroyed = destroyed;
+        this.destroyed = false;
     }
 //region getters and setters
     public int getX() {
