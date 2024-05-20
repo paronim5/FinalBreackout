@@ -1,14 +1,14 @@
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     private Ball ball;
@@ -47,7 +47,21 @@ public class GamePanel extends JPanel implements KeyListener {
     public GamePanel() {
 
     }
-    private void startGame() {}
+    private void startGame() {
+        inGame = true;
+        ball = new Ball(100, 100, 20, 2, 3, true);
+        paddle = new Paddle(350, 500, 100, 20, 5);
+        bricks = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            bricks.add(new Block(50 + (i % 10) * 70, 50 + (i / 10) * 30, 60, 20));
+        }
+        timer = new Timer(10, this);
+        timer.start();
+        requestFocus();
+        removeAll();
+
+        repaint();
+    }
     public static void createGameMenu() {}
     public void addScore(String player, int score){
         leaderboard.put(player, score);
@@ -84,6 +98,27 @@ public class GamePanel extends JPanel implements KeyListener {
             for (Block brick : bricks) {
                 brick.draw(g);
             }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (inGame) {
+            ball.move();
+            paddle.move();
+            if (CollisionDetector.checkCollision(ball, paddle)) {
+                ball.reverseY();
+            }
+            Iterator<Block> iterator = bricks.iterator();
+            while (iterator.hasNext()) {
+                Block brick = iterator.next();
+                if (CollisionDetector.checkCollision(ball, brick)) {
+                    ball.reverseY();
+                    iterator.remove();
+                }
+            }
+            // have to complete game over condition
+            repaint();
         }
     }
 }
