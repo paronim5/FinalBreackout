@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,14 +54,24 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
 
+
+
     @Override
     public void keyPressed(KeyEvent e) {
-
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_A) {
+            paddle.moveLeft();
+        } else if (key == KeyEvent.VK_D) {
+            paddle.moveRight();
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_A || key == KeyEvent.VK_D) {
+            paddle.stop();
+        }
     }
     @Override
     public void keyTyped(KeyEvent e) {}
