@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
         repaint();
     }
-    public static void createGameMenu() {}
+
     public void addScore(String player, int score){
         leaderboard.put(player, score);
     }
@@ -120,5 +120,35 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             // have to complete game over condition
             repaint();
         }
+    }
+    public static void createGameMenu() {
+        JFrame frame = new JFrame("Menu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+
+        JPanel controlPanel = new JPanel();
+        JButton startButton = new JButton("Start");
+        JButton exitButton = new JButton("Exit");
+        JButton leaderboardButton = new JButton("Leaderboard");
+
+        controlPanel.add(startButton);
+        controlPanel.add(leaderboardButton);
+        controlPanel.add(exitButton);
+
+        frame.add(controlPanel);
+        frame.setVisible(true);
+
+        exitButton.addActionListener(e -> System.exit(0));
+
+        startButton.addActionListener(e -> {
+            JFrame gameFrame = new JFrame("Game Field");
+            GamePanel gamePanel = new GamePanel();
+            gameFrame.add(gamePanel);
+            gameFrame.pack();
+            gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            gameFrame.setVisible(true);
+        });
+
+
     }
 }
