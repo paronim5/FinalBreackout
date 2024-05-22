@@ -53,8 +53,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
     private void startGame() {
         inGame = true;
-        ball = new Ball(100, 100, 20, 2, 3, true);
-        paddle = new Paddle(350, 500, 100, 20, 5);
+        ball = new Ball(260, 400, 20, 2, 3, true);
+        paddle = new Paddle(300, 500, 100, 20, 5);
         bricks = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             bricks.add(new Block(50 + (i % 10) * 70, 50 + (i / 10) * 30, 60, 20));
