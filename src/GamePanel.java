@@ -45,7 +45,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     //endregion
 
     public GamePanel() {
-
+        setBackground(Color.BLACK);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setFocusable(true);
+        addKeyListener(this);
+        startGame();
     }
     private void startGame() {
         inGame = true;
@@ -59,7 +63,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         timer.start();
         requestFocus();
         removeAll();
-
         repaint();
     }
 
