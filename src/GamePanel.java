@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (inGame) {
@@ -104,9 +105,24 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             for (Block brick : bricks) {
                 brick.draw(g);
             }
+        } else {
+            String message;
+            if (bricks.isEmpty()) {
+                message = "You Win!";
+            } else {
+                message = "Game Over";
+            }
+            Font font = new Font("Helvetica", Font.BOLD, 40);
+            FontMetrics metrics = getFontMetrics(font);
+            g.setColor(Color.RED);
+            g.setFont(font);
+            int y = HEIGHT / 2;
+            for (String line : message.split("\n")) {
+                g.drawString(line, (WIDTH - metrics.stringWidth(line)) / 2, y);
+                y += metrics.getHeight();
+            }
         }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
@@ -123,10 +139,19 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     iterator.remove();
                 }
             }
-            // have to complete game over condition
+            //game over
+            if (ball.getY() + ball.getDiameter() > HEIGHT) {
+                inGame = false;
+                timer.stop();
+            }//win
+            if (bricks.isEmpty()) {
+                inGame = false;
+                timer.stop();
+            }
             repaint();
         }
     }
+
     public static void createGameMenu() {
         JFrame frame = new JFrame("Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -179,7 +204,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             tutorialFrame.pack();
             tutorialFrame.setVisible(true);
         });
-
-
     }
+
 }
