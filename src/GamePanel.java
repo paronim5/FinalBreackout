@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private Ball ball;
     private Paddle paddle;
     private List<Block> bricks;
-    private Map<String, Integer> leaderboard = new HashMap<>();
+
     private Timer timer;
     private boolean inGame = true;
 
@@ -76,13 +76,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         repaint();
     }
 
-    public void addScore(String player, int score){
-        leaderboard.put(player, score);
-    }
-
-
-
-
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -142,10 +135,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         JPanel controlPanel = new JPanel();
         JButton startButton = new JButton("Start");
         JButton exitButton = new JButton("Exit");
-        JButton leaderboardButton = new JButton("Leaderboard");
+        JButton tutorialButton = new JButton("Tutorial");
 
         controlPanel.add(startButton);
-        controlPanel.add(leaderboardButton);
+        controlPanel.add(tutorialButton);
         controlPanel.add(exitButton);
 
         frame.add(controlPanel);
@@ -160,6 +153,31 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             gameFrame.pack();
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             gameFrame.setVisible(true);
+        });
+        tutorialButton.addActionListener(e -> {
+            JFrame tutorialFrame = new JFrame("How to Play");
+            tutorialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            tutorialFrame.setPreferredSize(new Dimension(600, 250));
+            tutorialFrame.setLayout(new BorderLayout());
+
+            JTextArea tutorialText = new JTextArea();
+            tutorialText.setEditable(false);
+            tutorialText.setFont(new Font("Serif", Font.PLAIN, 17));
+            tutorialText.setText(
+                    "How to Play:\n" +
+                            "1. Use 'A' and 'D' keys to move the paddle left and right.\n" +
+                            "2. The objective is to break all the bricks by bouncing the ball off the paddle.\n" +
+                            "3. If the ball hits a brick, the brick will be destroyed and the ball will bounce back.\n" +
+                            "4. If the ball hits the walls, it will bounce back.\n" +
+                            "5. If the ball falls below the paddle, the game will end.\n" +
+                            "Good luck and have fun!"
+            );
+
+            JScrollPane scrollPane = new JScrollPane(tutorialText);
+            tutorialFrame.add(scrollPane, BorderLayout.CENTER);
+
+            tutorialFrame.pack();
+            tutorialFrame.setVisible(true);
         });
 
 
