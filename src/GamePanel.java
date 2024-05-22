@@ -56,8 +56,18 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         ball = new Ball(260, 400, 20, 2, 3, true);
         paddle = new Paddle(300, 500, 100, 20, 5);
         bricks = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            bricks.add(new Block(50 + (i % 10) * 70, 50 + (i / 10) * 30, 60, 20));
+        int numBricksPerRow = 16;
+        int numRows = 4;
+        int margin  =3;
+        int brickWidth = (GamePanel.WIDTH - (margin  * (numBricksPerRow + 1))) / numBricksPerRow;
+        int brickHeight = 20;
+
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numBricksPerRow; col++) {
+                int x = col * (brickWidth + margin ) + margin ;
+                int y = row * (brickHeight + margin ) + 50;
+                bricks.add(new Block(x, y, brickWidth, brickHeight));
+            }
         }
         timer = new Timer(10, this);
         timer.start();

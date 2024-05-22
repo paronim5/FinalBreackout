@@ -60,6 +60,6 @@ public class Block {
     }
     public void draw(Graphics g){
         g.setColor(Color.red);
-        g.fillOval(x,y,width,height);
+        g.fillRect(x,y,width,height);
     }
 }
