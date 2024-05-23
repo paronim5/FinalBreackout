@@ -1,6 +1,4 @@
-import java.util.List;
-
-public class  BallMovementStrategy implements MovementStrategy{
+public class BPMovementStrategy implements MovementStrategy{
     private GamePanel gm;
 
     @Override
@@ -23,19 +21,17 @@ public class  BallMovementStrategy implements MovementStrategy{
             ball.reverseY(); // Reflect from top
         }
 
-        List<Block> blocks = gm.getBricks(); // Get blocks from game panel
-        for (Block block : blocks) {
-            if (CollisionDetector.checkCollision(ball, block)) {
-                // Change ball direction
-                ball.reverseY();
-                blocks.remove(block); // Remove block from list
-                break; // Break loop to not check collision with more than one block
-            }
         }
-    }
+
 
     @Override
     public void moveP(Paddle paddle) {
-
+        paddle.setX(paddle.getX() + paddle.getSpeed());
+        if (paddle.getX() < 0) {
+            paddle.setX(0);
+        }
+        if (paddle.getX() + paddle.getWidth() > GamePanel.WIDTH) {
+            paddle.setX(GamePanel.WIDTH - paddle.getWidth());
+        }
     }
 }
