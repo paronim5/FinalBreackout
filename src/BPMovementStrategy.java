@@ -26,7 +26,7 @@ public class BPMovementStrategy implements MovementStrategy{
 
     @Override
     public void moveP(Paddle paddle) {
-        paddle.setX(paddle.getX() + paddle.getSpeed());
+        paddle.setX(paddle.getX() + paddle.getDx()); // use dx to move the paddle
         if (paddle.getX() < 0) {
             paddle.setX(0);
         }
