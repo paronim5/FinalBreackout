@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     private Timer timer;
     private boolean inGame = true;
+    private  MovementStrategy movementStrategy;
 
 //region getters and setters
     public Ball getBall() {
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         addKeyListener(this);
+        movementStrategy = new BPMovementStrategy();
         startGame();
     }
     private void startGame() {
@@ -126,8 +128,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-            ball.move();
-            paddle.move();
+            movementStrategy.move(ball);
+            movementStrategy.moveP(paddle);
+
             if (CollisionDetector.checkCollision(ball, paddle)) {
                 ball.reverseY();
             }

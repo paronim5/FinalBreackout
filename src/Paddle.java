@@ -65,14 +65,7 @@ public class Paddle {
         this.dx = dx;
     }
     //endregion
-    public void move() {
-        x += dx;
-        if (x < 0) {
-            x = 0;
-        } else if (x + width > GamePanel.WIDTH) {
-            x = GamePanel.WIDTH - width;
-        }
-    }
+
     public Rectangle hitBox() {
         return new Rectangle(x, y, width, height);
     }
