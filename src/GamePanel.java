@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
-    public static final int WIDTH = 1200;
+    public static final int WIDTH = 900;
     public static final int HEIGHT = 800;
     private Ball ball;
     private Paddle paddle;
@@ -176,12 +176,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             GamePanel gamePanel = new GamePanel();
             gameFrame.add(gamePanel);
             gameFrame.pack();
-            gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            gameFrame.setResizable(false);
+            gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             gameFrame.setVisible(true);
         });
         tutorialButton.addActionListener(e -> {
             JFrame tutorialFrame = new JFrame("How to Play");
-            tutorialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            tutorialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             tutorialFrame.setPreferredSize(new Dimension(600, 250));
             tutorialFrame.setLayout(new BorderLayout());
 
