@@ -1,6 +1,4 @@
 public class BPMovementStrategy implements MovementStrategy{
-    private GamePanel gm;
-
     @Override
     public void move(Ball ball) {
         if (!ball.isMoving()) {
