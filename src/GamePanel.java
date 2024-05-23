@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 bricks.add(new Block(x, y, brickWidth, brickHeight));
             }
         }
-        timer = new Timer(10, this);
+        timer = new Timer(5, this);
         timer.start();
         requestFocus();
         removeAll();
