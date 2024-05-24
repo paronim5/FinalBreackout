@@ -17,35 +17,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     private Timer timer;
     private boolean inGame = true;
-    private  MovementStrategy movementStrategy;
+    private MovementStrategy movementStrategy;
+    private int difficultyLevel;
 
-//region getters and setters
-    public Ball getBall() {
-        return ball;
-    }
-
-    public void setBall(Ball ball) {
-        this.ball = ball;
-    }
-
-    public Paddle getPaddle() {
-        return paddle;
-    }
-
-    public void setPaddle(Paddle paddle) {
-        this.paddle = paddle;
-    }
-
-    public List<Block> getBricks() {
-        return bricks;
-    }
-
-    public void setBricks(List<Block> bricks) {
-        this.bricks = bricks;
-    }
-    //endregion
-
-    public GamePanel() {
+    public GamePanel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
@@ -53,25 +29,52 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         movementStrategy = new BPMovementStrategy();
         startGame();
     }
+
     private void startGame() {
+        JFrame gameFrame = new JFrame("Game Field");
+        GamePanel gamePanel = new GamePanel(difficultyLevel);
+        gameFrame.add(gamePanel);
+        gameFrame.pack();
+        gameFrame.setResizable(false);
+        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameFrame.setVisible(true);
         inGame = true;
-        ball = new Ball(260, 400, 20, 2, 3, true);
-        paddle = new Paddle(300, 500, 100, 20, 5);
-        bricks = new ArrayList<>();
+        int ballSpeedX = 2;
+        int ballSpeedY = 2;
+        int paddleSpeed = 5;
         int numBricksPerRow = 12;
+
+        switch (difficultyLevel) {
+            case 1: // Easy
+                numBricksPerRow = 8;
+                break;
+            case 2: // Medium
+                numBricksPerRow = 11;
+                ballSpeedX = 0;
+                break;
+            case 3: // Hard
+
+                break;
+        }
+
+
+        ball = new Ball(260, 400, 20, ballSpeedX, ballSpeedY, true);
+        paddle = new Paddle(200, 500, 100, 10, paddleSpeed);
+        bricks = new ArrayList<>();
         int numRows = 4;
-        int margin  =3;
-        int brickWidth = (GamePanel.WIDTH - (margin  * (numBricksPerRow + 1))) / numBricksPerRow;
+        int margin = 3;
+        int brickWidth = (GamePanel.WIDTH - (margin * (numBricksPerRow + 1))) / numBricksPerRow;
         int brickHeight = 20;
 
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numBricksPerRow; col++) {
-                int x = col * (brickWidth + margin ) + margin ;
-                int y = row * (brickHeight + margin ) + 50;
+                int x = col * (brickWidth + margin) + margin;
+                int y = row * (brickHeight + margin) + 50;
                 bricks.add(new Block(x, y, brickWidth, brickHeight));
             }
         }
-        timer = new Timer(1, this);
+
+        timer = new Timer(5, this);
         timer.start();
         requestFocus();
         removeAll();
@@ -90,11 +93,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(difficultyLevel ==1 || difficultyLevel ==2){
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_D) {
             paddle.stop();
         }
+        }
     }
+
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -108,12 +114,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 brick.draw(g);
             }
         } else {
-            String message;
-            if (bricks.isEmpty()) {
-                message = "You Win!";
-            } else {
-                message = "Game Over";
-            }
+            String message = bricks.isEmpty() ? "You Win!" : "Game Over";
             Font font = new Font("Helvetica", Font.BOLD, 40);
             FontMetrics metrics = getFontMetrics(font);
             g.setColor(Color.RED);
@@ -125,6 +126,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             }
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
@@ -133,24 +135,31 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
             if (CollisionDetector.checkCollision(ball, paddle)) {
                 ball.reverseY();
+
             }
+
             Iterator<Block> iterator = bricks.iterator();
             while (iterator.hasNext()) {
                 Block brick = iterator.next();
                 if (CollisionDetector.checkCollision(ball, brick)) {
                     ball.reverseY();
                     iterator.remove();
+                    if (difficultyLevel == 2) {
+                        ball.increaseSpeed();
+                    }
                 }
             }
-            //game over
+
             if (ball.getY() + ball.getDiameter() > HEIGHT) {
                 inGame = false;
                 timer.stop();
-            }//win
+            }
+
             if (bricks.isEmpty()) {
                 inGame = false;
                 timer.stop();
             }
+
             repaint();
         }
     }
@@ -158,7 +167,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public static void createGameMenu() {
         JFrame frame = new JFrame("Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(400, 300);
 
         JPanel controlPanel = new JPanel();
         JButton startButton = new JButton("Start");
@@ -175,14 +184,27 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         exitButton.addActionListener(e -> System.exit(0));
 
         startButton.addActionListener(e -> {
-            JFrame gameFrame = new JFrame("Game Field");
-            GamePanel gamePanel = new GamePanel();
-            gameFrame.add(gamePanel);
-            gameFrame.pack();
-            gameFrame.setResizable(false);
-            gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            gameFrame.setVisible(true);
+            JFrame levelFrame = new JFrame("Select Level");
+            levelFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            levelFrame.setSize(400, 300);
+
+            JPanel levelPanel = new JPanel();
+            JButton easyButton = new JButton("Easy");
+            JButton mediumButton = new JButton("Medium");
+            JButton hardButton = new JButton("Hard");
+
+            levelPanel.add(easyButton);
+            levelPanel.add(mediumButton);
+            levelPanel.add(hardButton);
+
+            levelFrame.add(levelPanel);
+            levelFrame.setVisible(true);
+
+            easyButton.addActionListener(ev -> startGame(1));
+            mediumButton.addActionListener(ev -> startGame(2));
+            hardButton.addActionListener(ev -> startGame(3));
         });
+
         tutorialButton.addActionListener(e -> {
             JFrame tutorialFrame = new JFrame("How to Play");
             tutorialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -210,4 +232,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         });
     }
 
+    private static void startGame(int difficultyLevel) {
+        JFrame gameFrame = new JFrame("Game Field");
+        GamePanel gamePanel = new GamePanel(difficultyLevel);
+        gameFrame.add(gamePanel);
+        gameFrame.pack();
+        gameFrame.setResizable(false);
+        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameFrame.setVisible(true);
+    }
 }
