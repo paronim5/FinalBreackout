@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Ball {
     private int x;
@@ -7,7 +8,6 @@ public class Ball {
     private int speedX;
     private int speedY;
     private boolean moving;
-
     public Ball(int x, int y, int diameter, int speedX, int speedY, boolean moving) {
         this.x = x;
         this.y = y;
@@ -80,5 +80,14 @@ public class Ball {
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillOval(x, y, diameter, diameter);
+    }
+    public void increaseSpeed() {
+        Random rand = new Random();
+        int randomSpeedX = rand.nextInt(4) + 1;
+        int randomSpeedY = rand.nextInt(4) + 1;
+
+        speedX = randomSpeedX;
+        speedY = randomSpeedY;
+        System.out.println("speed has increased " + speedX+" "+ speedY);
     }
 }
