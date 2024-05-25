@@ -67,7 +67,7 @@ public class Paddle {
     //endregion
 
     public Rectangle hitBox() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle(x, y, width+1, 1);
     }
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);

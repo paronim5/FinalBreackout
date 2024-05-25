@@ -31,13 +31,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
 
     private void startGame() {
-        JFrame gameFrame = new JFrame("Game Field");
-        GamePanel gamePanel = new GamePanel(difficultyLevel);
-        gameFrame.add(gamePanel);
-        gameFrame.pack();
-        gameFrame.setResizable(false);
-        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        gameFrame.setVisible(true);
         inGame = true;
         int ballSpeedX = 2;
         int ballSpeedY = 2;
@@ -59,7 +52,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 
         ball = new Ball(260, 400, 20, ballSpeedX, ballSpeedY, true);
-        paddle = new Paddle(200, 500, 100, 10, paddleSpeed);
+        paddle = new Paddle(200, 500, 100, 15, paddleSpeed);
         bricks = new ArrayList<>();
         int numRows = 4;
         int margin = 3;
@@ -232,7 +225,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         });
     }
 
-    private static void startGame(int difficultyLevel) {
+      private static void startGame(int difficultyLevel) {
         JFrame gameFrame = new JFrame("Game Field");
         GamePanel gamePanel = new GamePanel(difficultyLevel);
         gameFrame.add(gamePanel);
