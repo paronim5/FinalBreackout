@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         switch (difficultyLevel) {
             case 1: // Easy
                 numBricksPerRow = 8;
+
                 break;
             case 2: // Medium
                 numBricksPerRow = 11;
@@ -52,7 +53,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 
         ball = new Ball(260, 400, 20, ballSpeedX, ballSpeedY, true);
-        paddle = new Paddle(200, 500, 100, 15, paddleSpeed);
+        paddle = new Paddle(300, 500, 100, 15, paddleSpeed);
         bricks = new ArrayList<>();
         int numRows = 4;
         int margin = 3;
