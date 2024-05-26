@@ -36,5 +36,13 @@ class BallGameTests {
         paddle.setY(110);
         assertTrue(CollisionDetector.checkCollision(ball, paddle));
     }
+    @Test
+    public void testBallBlockCollision() {
+        ball.setX(200);
+        block.setX(190);
+        ball.setY(200);
+        block.setY(210);
+        assertTrue(CollisionDetector.checkCollision(ball, block));
+    }
 
 }
