@@ -24,5 +24,8 @@ class BallGameTests {
 
     @Test
     void reverseY() {
+        ball.reverseY();
+        // check that the y direction has reversed
+        assertEquals(-2,ball.getSpeedY());
     }
 }
