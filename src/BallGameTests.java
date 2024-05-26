@@ -28,4 +28,13 @@ class BallGameTests {
         // check that the y direction has reversed
         assertEquals(-2,ball.getSpeedY());
     }
+    @Test
+    public void testBallPaddleCollision() {
+        ball.setX(100);
+        ball.setY(100);
+        paddle.setX(95);
+        paddle.setY(110);
+        assertTrue(CollisionDetector.checkCollision(ball, paddle));
+    }
+
 }
