@@ -7,19 +7,25 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 import java.util.List;
-
+/**
+ * This class represents the game panel where the game takes place. It handles the game logic,
+ * rendering, and user input.
+ */
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public static final int WIDTH = 900;
     public static final int HEIGHT = 800;
     private Ball ball;
     private Paddle paddle;
     private List<Block> bricks;
-
     private Timer timer;
     private boolean inGame = true;
     private MovementStrategy movementStrategy;
     private int difficultyLevel;
-
+    /**
+     * Constructs a new game panel with the specified difficulty level.
+     *
+     * @param difficultyLevel the difficulty level of the game
+     */
     public GamePanel(int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
         setBackground(Color.BLACK);
@@ -29,7 +35,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         movementStrategy = new BPMovementStrategy();
         startGame();
     }
-
+    /**
+     * Method for starting the game by initializing game objects and setting up the timer.
+     */
     private void startGame() {
         inGame = true;
         int ballSpeedX = 2;
@@ -74,7 +82,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         removeAll();
         repaint();
     }
-
+    /**
+     * Handles the key press events to move the paddle.
+     *
+     * @param e the key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -84,6 +96,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             paddle.moveRight();
         }
     }
+    /**
+     * Handles the key release events to stop the paddle.
+     *
+     * @param e the key event
+     */
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -97,7 +114,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
+    /**
+     * Renders the game objects on the panel.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -120,7 +139,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             }
         }
     }
-
+    /**
+     * Handles the action events triggered by the game timer.
+     *
+     * @param e the action event(timer in our case)
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
@@ -157,7 +180,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             repaint();
         }
     }
-
+    /**
+     * Creates the game menu with options to start the game, view the tutorial, or exit.
+     * After game has started create "Select Level" where you have to select what level you would like to play
+     */
     public static void createGameMenu() {
         JFrame frame = new JFrame("Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -225,7 +251,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             tutorialFrame.setVisible(true);
         });
     }
-
+    /**
+     * Starts the game with the specified difficulty level.
+     *
+     * @param difficultyLevel the difficulty level to start the game with
+     */
       private static void startGame(int difficultyLevel) {
         JFrame gameFrame = new JFrame("Game Field");
         GamePanel gamePanel = new GamePanel(difficultyLevel);

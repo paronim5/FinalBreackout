@@ -7,7 +7,14 @@ public class Paddle {
     private int height;
     private int speed;
     private int dx;
-
+    /**
+     * Constructor for a new block with parameters.
+     *
+     * @param x the original x-coordinate
+     * @param y the original y-coordinate
+     * @param width the width of the paddle
+     * @param height the height of the paddle
+     */
     public Paddle(int x, int y, int width, int height, int speed) {
         this.x = x;
         this.y = y;
@@ -65,22 +72,34 @@ public class Paddle {
         this.dx = dx;
     }
     //endregion
-
+    /**
+     * Method for creating the hitbox of the block.
+     */
     public Rectangle hitBox() {
         return new Rectangle(x, y, width+1, 1);
     }
+    /**
+     * Draws the paddle.
+     */
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
     }
+    /**
+     * Method for stopping the paddle.
+     */
     public void stop() {
         dx = 0;
     }
-
+    /**
+     * Method for moving paddle to the left.
+     */
     public void moveLeft() {
         dx = -speed;
     }
-
+    /**
+     * Method for moving paddle to the right.
+     */
     public void moveRight() {
         dx = speed;
     }

@@ -6,6 +6,14 @@ public class Block {
     private int width;
     private int height;
     private boolean destroyed;
+    /**
+     * Constructor for a new block with parameters.
+     *
+     * @param x the original x-coordinate
+     * @param y the original y-coordinate
+     * @param width the width of the block
+     * @param height the height of the block
+     */
 
     public Block(int x, int y, int width, int height) {
         this.x = x;
@@ -55,9 +63,15 @@ public class Block {
         this.destroyed = destroyed;
     }
     //endregion
+    /**
+     * Method for creating the hitbox of the block.
+     */
     public Rectangle hitBox(){
         return new Rectangle(x,y,width,height);
     }
+    /**
+     * Draws the block.
+     */
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.fillRect(x,y,width,height);
