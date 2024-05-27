@@ -56,4 +56,12 @@ class BallGameTests {
         }
         assertEquals(-2, ball.getSpeedY());
     }
+    @Test
+    public void testBallReflectsOnWall() {
+        int originalSpeedX = ball.getSpeedX();
+        ball.setX(GamePanel.WIDTH - ball.getDiameter() - 1);
+        new BPMovementStrategy().move(ball);
+        assertEquals(-originalSpeedX, ball.getSpeedX());
+    }
+
 }
