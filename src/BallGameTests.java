@@ -44,5 +44,16 @@ class BallGameTests {
         block.setY(210);
         assertTrue(CollisionDetector.checkCollision(ball, block));
     }
+    @Test
+    public void testBallReflectsFromPaddle() {
+        ball.setX(paddle.getX() + paddle.getWidth() / 2);
+        ball.setY(paddle.getY() - ball.getDiameter());
+        ball.setSpeedY(2);
 
+        new BPMovementStrategy().move(ball);
+        if (CollisionDetector.checkCollision(ball, paddle)) {
+            ball.reverseY();
+        }
+        assertEquals(-2, ball.getSpeedY());
+    }
 }
