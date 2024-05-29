@@ -228,7 +228,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         tutorialButton.addActionListener(e -> {
             JFrame tutorialFrame = new JFrame("How to Play");
             tutorialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            tutorialFrame.setPreferredSize(new Dimension(600, 250));
+            tutorialFrame.setPreferredSize(new Dimension(700, 325));
             tutorialFrame.setLayout(new BorderLayout());
 
             JTextArea tutorialText = new JTextArea();
@@ -236,11 +236,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             tutorialText.setFont(new Font("Serif", Font.PLAIN, 17));
             tutorialText.setText(
                     "How to Play:\n" +
-                            "1. Use 'A' and 'D' keys to move the paddle left and right.\n" +
-                            "2. The objective is to break all the bricks by bouncing the ball off the paddle.\n" +
-                            "3. If the ball hits a brick, the brick will be destroyed and the ball will bounce back.\n" +
-                            "4. If the ball hits the walls, it will bounce back.\n" +
-                            "5. If the ball falls below the paddle, the game will end.\n" +
+                            "1. Open the game menu and click the 'Start' button.\n" +
+                            "2. Choose a difficulty level: Easy, Medium, or Hard.\n" +
+                            "   - Easy: Classic Breakout gameplay.\n" +
+                            "   - Medium: The ball bounces in a random direction after hitting a block.\n" +
+                            "   - Hard: The paddle continues to move in one direction until it hits the edge of the screen.\n" +
+                            "3. Use 'A' and 'D' keys to move the paddle left and right.\n" +
+                            "4. The objective is to break all the bricks by bouncing the ball off the paddle.\n" +
+                            "5. If the ball hits a brick, the brick will be destroyed and the ball will bounce back.\n" +
+                            "6. If the ball hits the walls, it will bounce back.\n" +
+                            "7. If the ball falls below the paddle, the game will end.\n" +
                             "Good luck and have fun!"
             );
 
