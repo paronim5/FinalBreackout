@@ -265,7 +265,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         tutorialButton.addActionListener(e -> {
             JFrame tutorialFrame = new JFrame("How to Play");
             tutorialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            tutorialFrame.setPreferredSize(new Dimension(700, 325));
+            tutorialFrame.setPreferredSize(new Dimension(700, 400));
             tutorialFrame.setLayout(new BorderLayout());
 
             JTextArea tutorialText = new JTextArea();
@@ -279,10 +279,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             "   - Medium: The ball bounces in a random direction after hitting a block.\n" +
                             "   - Hard: The paddle continues to move in one direction until it hits the edge of the screen.\n" +
                             "3. Use 'A' and 'D' keys to move the paddle left and right.\n" +
-                            "4. The objective is to break all the bricks by bouncing the ball off the paddle.\n" +
-                            "5. If the ball hits a brick, the brick will be destroyed and the ball will bounce back.\n" +
-                            "6. If the ball hits the walls, it will bounce back.\n" +
-                            "7. If the ball falls below the paddle, the game will end.\n" +
+                            "4. Use 'Esc' or 'Space' keys to pause the game.\n" +
+                            "5. Use 'R' key to restart the game.\n" +
+                            "6. The objective is to break all the bricks by bouncing the ball off the paddle.\n" +
+                            "7. If the ball hits a brick, the brick will be destroyed and the ball will bounce back.\n" +
+                            "8. If the ball hits the walls, it will bounce back.\n" +
+                            "9. If the ball falls below the paddle, the game will end.\n" +
                             "Good luck and have fun!"
             );
 
