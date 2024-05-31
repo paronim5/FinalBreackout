@@ -19,8 +19,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private List<Block> bricks;
     private Timer timer;
     private boolean inGame = true;
+    private boolean isPaused = false; // New variable for pause functionality
     private MovementStrategy movementStrategy;
     private int difficultyLevel;
+
     /**
      * Constructs a new game panel with the specified difficulty level.
      *
@@ -35,6 +37,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         movementStrategy = new BPMovementStrategy();
         startGame();
     }
+
     /**
      * Method for starting the game by initializing game objects and setting up the timer.
      */
@@ -152,7 +155,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
             if (CollisionDetector.checkCollision(ball, paddle)) {
                 ball.reverseY();
-
             }
 
             Iterator<Block> iterator = bricks.iterator();
@@ -182,7 +184,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
     /**
      * Creates the game menu with options to start the game, view the tutorial, or exit.
-     * After game has started create "Select Level" where you have to select what level you would like to play
+     * After the game has started, creates "Select Level" where you have to select what level you would like to play.
      */
     public static void createGameMenu() {
         JFrame frame = new JFrame("Menu");
