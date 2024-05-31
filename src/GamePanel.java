@@ -52,14 +52,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         switch (difficultyLevel) {
             case 1: // Easy
                 numBricksPerRow = 8;
-
                 break;
             case 2: // Medium
                 numBricksPerRow = 11;
                 ballSpeedX = 0;
                 break;
             case 3: // Hard
-
                 break;
         }
 
@@ -147,7 +145,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 y += metrics.getHeight();
             }
         }
+
+        if (isPaused) {
+            String pauseMessage = "Paused";
+            Font font = new Font("Helvetica", Font.BOLD, 40);
+            FontMetrics metrics = getFontMetrics(font);
+            g.setColor(Color.YELLOW);
+            g.setFont(font);
+            g.drawString(pauseMessage, (WIDTH - metrics.stringWidth(pauseMessage)) / 2, HEIGHT / 2);
+        }
     }
+
     /**
      * Handles the action events triggered by the game timer.
      *
