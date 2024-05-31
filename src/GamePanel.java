@@ -43,6 +43,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
      */
     private void startGame() {
         inGame = true;
+        isPaused = false; // Ensure game is not paused when starting
         int ballSpeedX = 2;
         int ballSpeedY = 2;
         int paddleSpeed = 5;
@@ -62,8 +63,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 break;
         }
 
-
-        ball = new Ball(260, 400, 20, ballSpeedX, ballSpeedY, true);
+        ball = new Ball(300, 400, 20, ballSpeedX, ballSpeedY, true);
         paddle = new Paddle(300, 500, 100, 15, paddleSpeed);
         bricks = new ArrayList<>();
         int numRows = 4;
@@ -85,8 +85,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         removeAll();
         repaint();
     }
+
     /**
-     * Handles the key press events to move the paddle.
+     * Handles the key press events to move the paddle and handle pause/restart.
      *
      * @param e the key event
      */
@@ -97,26 +98,31 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             paddle.moveLeft();
         } else if (key == KeyEvent.VK_D) {
             paddle.moveRight();
+        } else if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_SPACE) {
+            togglePause();
+        } else if (key == KeyEvent.VK_R) {
+            restartGame();
         }
     }
+
     /**
      * Handles the key release events to stop the paddle.
      *
      * @param e the key event
      */
-
     @Override
     public void keyReleased(KeyEvent e) {
-        if(difficultyLevel ==1 || difficultyLevel ==2){
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_A || key == KeyEvent.VK_D) {
-            paddle.stop();
-        }
+        if (difficultyLevel == 1 || difficultyLevel == 2) {
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_A || key == KeyEvent.VK_D) {
+                paddle.stop();
+            }
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {}
+
     /**
      * Renders the game objects on the panel.
      */
@@ -145,11 +151,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     /**
      * Handles the action events triggered by the game timer.
      *
-     * @param e the action event(timer in our case)
+     * @param e the action event (timer in our case)
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (inGame) {
+        if (inGame && !isPaused) {
             movementStrategy.move(ball);
             movementStrategy.moveP(paddle);
 
@@ -182,6 +188,27 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             repaint();
         }
     }
+
+    /**
+     * Toggles the pause state of the game.
+     */
+    private void togglePause() {
+        isPaused = !isPaused;
+        if (isPaused) {
+            timer.stop();
+        } else {
+            timer.start();
+        }
+        repaint();
+    }
+
+    /**
+     * Restarts the game at the same difficulty level.
+     */
+    private void restartGame() {
+        startGame();
+    }
+
     /**
      * Creates the game menu with options to start the game, view the tutorial, or exit.
      * After the game has started, creates "Select Level" where you have to select what level you would like to play.
@@ -258,12 +285,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             tutorialFrame.setVisible(true);
         });
     }
+
     /**
      * Starts the game with the specified difficulty level.
      *
      * @param difficultyLevel the difficulty level to start the game with
      */
-      private static void startGame(int difficultyLevel) {
+    private static void startGame(int difficultyLevel) {
         JFrame gameFrame = new JFrame("Game Field");
         GamePanel gamePanel = new GamePanel(difficultyLevel);
         gameFrame.add(gamePanel);
